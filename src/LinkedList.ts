@@ -29,19 +29,63 @@ export class LinkedList<T> implements ILinkedList<T> {
 
     }
 
-    deleteNode(node: Node<T>): void {
-        throw new Error("Method not implemented.");
+    deleteNode(data: T): void {
+        if (this.head === undefined) return;
+        if (this.head.data === data) {
+            this.head = this.head.next;
+        }
+
+        let iterator = this.head;
+
+        while (iterator) {
+            if (iterator.next?.data === data) {
+                iterator.next = iterator.next.next;
+            }
+
+            iterator = iterator.next;
+        }
+
+
     }
 
     traverse(): T[] {
-        throw new Error("Method not implemented.");
+        const result: T[] = [];
+
+        let iterator = this.head;
+
+        while (iterator) {
+            result.push(iterator.data);
+            iterator = iterator.next;
+        }
+
+        return  result;
     }
 
     size(): number {
-        throw new Error("Method not implemented.");
+        let iterator = this.head;
+        let size = 0;
+
+        while (iterator) {
+            size++;
+            iterator = iterator.next;
+        }
+
+        return size;
     }
     
     search(comparator: (data: T) => boolean): Node<T> | null {
-        throw new Error("Method not implemented.");
+        let iterator = this.head;
+        let result: Node<T> | null = null;
+
+        while (iterator) {
+            if (comparator(iterator.data)) {
+                result = iterator;
+                break;
+            }
+
+            iterator = iterator.next;
+        }
+
+        return result;
     }
 }
